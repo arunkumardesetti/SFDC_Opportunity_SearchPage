@@ -1,0 +1,39 @@
+<template>
+    <lightning-card title="Search Opportunities" icon-name="standard:opportunity">
+        
+        <lightning-layout multiple-rows="true" vertical-align="end">
+            <lightning-layout-item size="4" padding="around-small">
+                <lightning-input type="text" label="Search (Enter Name, Account Name, Stage, Type or Amount)" value={nameKey} onchange={updateNameKey}></lightning-input>
+                <div if:true={errorMsg} style="margin-left: 3%;">
+                    <p style="color: red;">{errorMsg}</p>
+                </div>
+            </lightning-layout-item>
+            
+            <lightning-layout-item size="2" padding="around-small">
+                <lightning-button label="Search" onclick={handleSearch} variants="brand"></lightning-button>
+            </lightning-layout-item>
+
+            <template if:true={oppties}>
+                <lightning-layout-item size="12" padding="around-small">
+                    <lightning-datatable key-field="id" data={oppties} columns={cols} onrowselection={handleRowAction} max-row-selection="1" show-row-number-column="true"></lightning-datatable>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="6" padding="around-small">
+                    <lightning-button-group>
+                        <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandeler} disabled={prev}></lightning-button>
+                        <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right" onclick={nextHandeler} disabled={nxt}></lightning-button>
+                    </lightning-button-group>
+                </lightning-layout-item >
+            </template>               
+        </lightning-layout>
+
+        <lightning-layout horizontal-align="end">
+            <template if:true={oppties}>
+                <lightning-layout-item padding="around-small" horizontal-align="end">
+                    <lightning-button label="Send Record" onclick={handleSend} variants="brand"></lightning-button>
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>
+
+    </lightning-card>
+</template>
